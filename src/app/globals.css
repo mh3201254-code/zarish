@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/*
+  ZARISH design tokens.
+  Generated direction: UI UX Pro Max (design-system/zarish/MASTER.md).
+  Overrides: the generator returned "Feature-Rich Showcase" + "Liquid Glass" on a
+  light stone palette, which suits a SaaS/Apple-platform product, not heritage
+  bridal jewellery. We kept its Cormorant + Montserrat pairing and its gold
+  accent, but moved to a deep garnet-black ground with ivory text and gold
+  used sparingly, and a showcase pattern built around one 3D gem.
+*/
+:root {
+  --bg: #140a0d;
+  --surface: #1e1014;
+  --surface-2: #2b161c;
+  --ivory: #f4eadb;
+  --muted: #b9a99a;
+  --gold: #c9a24b;
+  --gold-soft: #e6cf93;
+  --ruby: #9c1f3a;
+  --line: rgba(244, 234, 219, 0.14);
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 7rem;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-display: "Cormorant", "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-body: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ivory: var(--ivory);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-ruby: var(--ruby);
+  --color-line: var(--line);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+html {
+  background: var(--bg);
+  color-scheme: dark;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ivory);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.04;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--bg);
+}
+
+a, button, [role="button"], summary, select, label[for] {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-soft);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+input, textarea, select {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--ivory);
+  padding: 0.8rem 1rem;
+  width: 100%;
+  font: inherit;
+  font-size: 0.95rem;
+  border-radius: 2px;
+  transition: border-color 0.2s;
+}
+input::placeholder, textarea::placeholder { color: rgba(185, 169, 154, 0.7); }
+input:focus, textarea:focus, select:focus { border-color: var(--gold); outline: none; }
+select option { background: var(--surface); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.9rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s, opacity 0.25s;
+  white-space: nowrap;
+}
+.btn-gold { background: var(--gold); color: #1a0d10; }
+.btn-gold:hover { background: var(--gold-soft); }
+.btn-line { border: 1px solid var(--line); color: var(--ivory); }
+.btn-line:hover { border-color: var(--gold); color: var(--gold-soft); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.container-x { width: min(100% - 2.5rem, 1320px); margin-inline: auto; }
+
+.gold-text {
+  background: linear-gradient(100deg, #8d6c2a 0%, #e6cf93 38%, #c9a24b 62%, #8d6c2a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.marquee-track { animation: marquee 38s linear infinite; }
+@keyframes marquee { to { transform: translate3d(-50%, 0, 0); } }
+
+.hide-scrollbar { scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  html { scroll-behavior: auto; }
+}
