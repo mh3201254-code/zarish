@@ -38,7 +38,6 @@ function sample(p: number): Pose {
 
 function useGemGeometry() {
   return useMemo(() => {
-    // Brilliant-cut profile revolved into 12 facets, flat shaded.
     const pts = [
       [0, -1.15],
       [0.98, -0.02],
@@ -75,14 +74,12 @@ function Scene({ progress, lowPower }: { progress: MotionValue<number>; lowPower
       rig.current.position.z = d(rig.current.position.z, p.pos[2], 4, dt);
       const s = d(rig.current.scale.x, p.scale, 4, dt);
       rig.current.scale.setScalar(s);
-      // Damped mouse parallax and tilt
       rig.current.rotation.x = d(rig.current.rotation.x, -state.pointer.y * 0.35, 3, dt);
       rig.current.rotation.z = d(rig.current.rotation.z, -state.pointer.x * 0.12, 3, dt);
     }
     if (gem.current) {
-      // Slow idle spin, nudged by the pointer
       gem.current.rotation.y += dt * 0.35;
-      gem.current.rotation.y += (state.pointer.x * 0.6 - 0) * dt * 0.2;
+      gem.current.rotation.y += state.pointer.x * 0.12 * dt;
     }
     if (ring.current) {
       const target = p.ring;
@@ -103,7 +100,7 @@ function Scene({ progress, lowPower }: { progress: MotionValue<number>; lowPower
       <ambientLight intensity={0.2} />
       <pointLight position={[4, 5, 5]} intensity={60} color="#ffe2a8" />
       <pointLight position={[-5, -2, 3]} intensity={25} color="#ff5c7c" />
-      <Environment resolution={256} frames={1}>
+      <Environment resolution={lowPower ? 128 : 256} frames={1}>
         <Lightformer form="rect" intensity={7} position={[0, 5, -4]} scale={[12, 3, 1]} color="#fff2d0" />
         <Lightformer form="ring" intensity={4} position={[-5, 1, -2]} scale={4} color="#ffd9a0" />
         <Lightformer form="rect" intensity={3} position={[5, -1, -3]} scale={[3, 8, 1]} color="#ff6b8a" />
@@ -117,8 +114,8 @@ function Scene({ progress, lowPower }: { progress: MotionValue<number>; lowPower
               <meshPhysicalMaterial color="#a8203f" roughness={0.04} metalness={0.15} clearcoat={1} clearcoatRoughness={0.05} envMapIntensity={2.2} flatShading />
             ) : (
               <MeshTransmissionMaterial
-                samples={6}
-                resolution={512}
+                samples={3}
+                resolution={256}
                 transmission={1}
                 thickness={0.9}
                 roughness={0.02}
@@ -158,7 +155,7 @@ function Scene({ progress, lowPower }: { progress: MotionValue<number>; lowPower
         </group>
       </group>
 
-      <Sparkles count={lowPower ? 28 : 90} scale={[9, 6, 5]} size={lowPower ? 2.5 : 3.2} speed={0.35} opacity={0.9} color="#e6cf93" />
+      <Sparkles count={lowPower ? 16 : 45} scale={[9, 6, 5]} size={lowPower ? 2.5 : 3.2} speed={0.35} opacity={0.9} color="#e6cf93" />
     </>
   );
 }
@@ -174,7 +171,7 @@ export default function GemCanvas({
 }) {
   return (
     <Canvas
-      dpr={[1, lowPower ? 1 : 2]}
+      dpr={[1, lowPower ? 1 : 1.5]}
       frameloop={visible ? "always" : "never"}
       camera={{ position: [0, 0, 6.2], fov: 35 }}
       gl={{ antialias: !lowPower, alpha: true, powerPreference: lowPower ? "default" : "high-performance" }}
