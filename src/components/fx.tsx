@@ -148,16 +148,21 @@ export function Magnetic({
 
 /* Marquee: CSS-driven, pauses on hover. */
 export function Marquee({ items, className }: { items: string[]; className?: string }) {
-  const row = [...items, ...items];
+  const renderRow = (prefix: string) => (
+    <div key={prefix} className="flex shrink-0 gap-14 pr-14 whitespace-nowrap">
+      {items.map((t, i) => (
+        <span key={`${prefix}-${i}`} className="shrink-0 font-display text-4xl italic text-ivory/80 md:text-6xl">
+          {t}
+          <span className="ml-14 text-gold">&#9670;</span>
+        </span>
+      ))}
+    </div>
+  );
   return (
     <div className={`overflow-hidden ${className ?? ""}`} aria-hidden>
-      <div className="marquee-track flex w-max gap-14 whitespace-nowrap hover:[animation-play-state:paused]">
-        {row.map((t, i) => (
-          <span key={i} className="font-display text-4xl italic text-ivory/80 md:text-6xl">
-            {t}
-            <span className="ml-14 text-gold">&#9670;</span>
-          </span>
-        ))}
+      <div className="marquee-track flex w-max hover:[animation-play-state:paused]">
+        {renderRow("a")}
+        {renderRow("b")}
       </div>
     </div>
   );
