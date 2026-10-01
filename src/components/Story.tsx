@@ -118,21 +118,23 @@ export default function Story() {
   return (
     <section ref={wrap} aria-label="Introduction" className={reduce ? "relative" : "relative h-[460vh]"}>
       <div ref={sticky} className={reduce ? "relative min-h-[88vh]" : "sticky top-0 h-screen overflow-hidden"}>
-        {/* Cinematic jewellery video banner — kept behind the existing 3D hero. */}
-        <div className="absolute inset-0 overflow-hidden bg-[#140a0d]" aria-hidden>
+        {/* Cinematic jewellery video banner — hero video only. */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-[#140a0d]" aria-hidden>
           <video
-            className="absolute inset-0 h-full w-full object-cover object-center opacity-45 mix-blend-screen md:opacity-40"
-            autoPlay={!reduce}
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-55"
+            autoPlay
             muted
             loop
             playsInline
-            preload="metadata"
-            src="https://videos.pexels.com/video-files/6469640/6469640-uhd_2160_3172_30fps.mp4"
+            preload="auto"
+            src="https://videos.pexels.com/video-files/8246545/8246545-hd_1920_1080_25fps.mp4"
           />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(58,18,32,0.48)_0%,rgba(20,10,13,0.9)_72%)]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#140a0d] via-[#140a0d]/45 to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_68%_42%,rgba(58,18,32,0.25)_0%,rgba(20,10,13,0.78)_78%)]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#140a0d]/85 via-[#140a0d]/30 to-transparent" />
         </div>
-        {cap.ready && cap.can3D ? <GemCanvas progress={progress} lowPower={cap.lowPower} visible={visible} /> : <StaticGem />}
+        <div className="absolute inset-0 z-[1] pointer-events-none">
+          {cap.ready && cap.can3D ? <GemCanvas progress={progress} lowPower={cap.lowPower} visible={visible} /> : <StaticGem />}
+        </div>
 
         {/* Hero */}
         <motion.div style={{ opacity: heroOpacity, y: heroY }} className="absolute inset-0 z-10 flex items-end pb-20 md:items-center md:pb-0">
