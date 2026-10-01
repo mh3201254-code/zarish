@@ -164,7 +164,7 @@ export default function Story() {
             <Panel progress={progress} from={0.52} to={0.76} side="left">
               <StoryCopy title="Metal you can read about" text="Every product page lists its metal, stone and weight in grams, so you know exactly what you are buying before you order." />
             </Panel>
-            <Panel progress={progress} from={0.78} to={1.02} side="left">
+            <Panel progress={progress} from={0.78} to={1} side="left">
               <StoryCopy title="Made for the day, kept for the decades" text="Bridal sets are designed as a whole: necklace, earrings and tikka that sit together on camera and in person." cta />
             </Panel>
           </>
