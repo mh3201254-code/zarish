@@ -82,8 +82,7 @@ export function CollectionsGallery() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const x = useTransform(scrollYProgress, [0, 1], ["0vw", `-${shift}vw`]);
 
-  if (!data) return <div className="h-40" aria-hidden />;
-
+  // The section (and its ref) always renders so scroll tracking attaches on mount.
   return (
     <section ref={ref} aria-label="Collections" style={{ height: `${Math.max(220, 120 + n * 55)}vh` }} className="relative mt-[var(--space-6)]">
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
@@ -94,6 +93,9 @@ export function CollectionsGallery() {
           </Link>
         </div>
         <motion.ul style={{ x, gap: `${gapVw}vw`, paddingLeft: "5vw" }} className="flex will-change-transform">
+          {!data && (
+            <li className="shrink-0 animate-pulse border border-line bg-surface" style={{ width: `${cardVw}vw`, aspectRatio: "5 / 6" }} aria-hidden />
+          )}
           {cats.map((c, i) => (
             <li key={c.id} style={{ width: `${cardVw}vw` }} className="shrink-0">
               <Link href={`/shop/?category=${c.slug}`} className="group block">

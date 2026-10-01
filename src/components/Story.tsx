@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { KineticText, Magnetic } from "./fx";
 import { useSettings } from "@/lib/store";
@@ -37,6 +37,21 @@ function useCapability(): Capability {
     else setTimeout(go, 200);
   }, []);
   return cap;
+}
+
+/* If the 3D canvas ever throws (old GPU, blocked WebGL), fall back to the static gem
+   instead of taking the whole page down. */
+class CanvasBoundary extends Component<{ fallback: ReactNode; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  componentDidCatch(error: unknown) {
+    console.warn("3D scene disabled:", error);
+  }
+  render() {
+    return this.state.failed ? this.props.fallback : this.props.children;
+  }
 }
 
 /* Shown on low-power devices, reduced motion and before the canvas loads. */
@@ -78,9 +93,14 @@ function Panel({
   side: "left" | "right";
   children: React.ReactNode;
 }) {
+  // Scroll-linked ranges must run from exactly 0 to 1, otherwise the browser
+  // blends the missing end back to the element's base value.
   const fade = 0.05;
-  const opacity = useTransform(progress, [from, from + fade, to - fade, to], [0, 1, 1, 0]);
-  const y = useTransform(progress, [from, from + fade, to - fade, to], [36, 0, 0, -36]);
+  const end = Math.min(to, 1);
+  const holdsToEnd = to >= 1;
+  const input = holdsToEnd ? [0, from, from + fade, 1] : [0, from, from + fade, end - fade, end, 1];
+  const opacity = useTransform(progress, input, holdsToEnd ? [0, 0, 1, 1] : [0, 0, 1, 1, 0, 0]);
+  const y = useTransform(progress, input, holdsToEnd ? [36, 36, 0, 0] : [36, 36, 0, 0, -36, -36]);
   return (
     <motion.div
       style={{ opacity, y }}
@@ -112,29 +132,20 @@ export default function Story() {
     return () => io.disconnect();
   }, []);
 
-  const heroOpacity = useTransform(progress, [0, 0.16, 0.22], [1, 1, 0]);
-  const heroY = useTransform(progress, [0, 0.22], [0, -60]);
+  const heroOpacity = useTransform(progress, [0, 0.16, 0.22, 1], [1, 1, 0, 0]);
+  const heroY = useTransform(progress, [0, 0.22, 1], [0, -60, -60]);
 
   return (
     <section ref={wrap} aria-label="Introduction" className={reduce ? "relative" : "relative h-[460vh]"}>
       <div ref={sticky} className={reduce ? "relative min-h-[88vh]" : "sticky top-0 h-screen overflow-hidden"}>
-        {/* 3D-style luxury motion banner — hero video only. */}
-        <div className="absolute inset-0 z-0 overflow-hidden bg-[#140a0d]" aria-hidden>
-          <video
-            className="absolute inset-0 h-full w-full object-cover object-center opacity-50"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            src="https://videos.pexels.com/video-files/36037664/36037664-uhd_3840_2160_60fps.mp4"
-          />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_68%_42%,rgba(112,65,20,0.22)_0%,rgba(20,10,13,0.8)_76%)]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#140a0d]/88 via-[#140a0d]/35 to-transparent" />
-        </div>
-        <div className="absolute inset-0 z-[1] pointer-events-none">
-          {cap.ready && cap.can3D ? <GemCanvas progress={progress} lowPower={cap.lowPower} visible={visible} /> : <StaticGem />}
-        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,#3a1220_0%,#140a0d_62%)]" aria-hidden />
+        {cap.ready && cap.can3D ? (
+          <CanvasBoundary fallback={<StaticGem />}>
+            <GemCanvas progress={progress} lowPower={cap.lowPower} visible={visible} />
+          </CanvasBoundary>
+        ) : (
+          <StaticGem />
+        )}
 
         {/* Hero */}
         <motion.div style={{ opacity: heroOpacity, y: heroY }} className="absolute inset-0 z-10 flex items-end pb-20 md:items-center md:pb-0">
@@ -173,7 +184,7 @@ export default function Story() {
 
         {!reduce && (
           <>
-            <Panel progress={progress} from={0.24} to={0.5} side="right">
+            <Panel progress={progress} from={0.24} to={0.5} side={cap.ready && cap.can3D ? "right" : "left"}>
               <StoryCopy title="Cut, set and polished by hand" text="Each stone is set and each edge finished by a single craftsperson, then checked against the design before it leaves the workshop. Slow work, and you can see it in the light." />
             </Panel>
             <Panel progress={progress} from={0.52} to={0.76} side="left">
