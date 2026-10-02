@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useMotionValue, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { KineticText, Magnetic } from "./fx";
+import RingHero, { useRingSource } from "./RingHero";
 import { useSettings } from "@/lib/store";
 
 // The canvas (three + drei + shaders) is split into its own chunk and only
@@ -117,6 +118,7 @@ export default function Story() {
   const settings = useSettings();
   const reduce = useReducedMotion();
   const cap = useCapability();
+  const ring = useRingSource();
   const wrap = useRef<HTMLDivElement>(null);
   const sticky = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
@@ -139,13 +141,16 @@ export default function Story() {
     <section ref={wrap} aria-label="Introduction" className={reduce ? "relative" : "relative h-[460vh]"}>
       <div ref={sticky} className={reduce ? "relative min-h-[88vh]" : "sticky top-0 h-screen overflow-hidden"}>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,#3a1220_0%,#140a0d_62%)]" aria-hidden />
-        {cap.ready && cap.can3D ? (
+        {/* A realistic ring image (public/hero-ring.png) wins. Without one, the 3D ruby gem is used. */}
+        {ring ? (
+          <RingHero progress={progress} source={ring} />
+        ) : ring === null && cap.ready && cap.can3D ? (
           <CanvasBoundary fallback={<StaticGem />}>
             <GemCanvas progress={progress} lowPower={cap.lowPower} visible={visible} />
           </CanvasBoundary>
-        ) : (
+        ) : ring === null ? (
           <StaticGem />
-        )}
+        ) : null}
 
         {/* Hero */}
         <motion.div style={{ opacity: heroOpacity, y: heroY }} className="absolute inset-0 z-10 flex items-end pb-20 md:items-center md:pb-0">
@@ -184,7 +189,7 @@ export default function Story() {
 
         {!reduce && (
           <>
-            <Panel progress={progress} from={0.24} to={0.5} side={cap.ready && cap.can3D ? "right" : "left"}>
+            <Panel progress={progress} from={0.24} to={0.5} side={ring || (cap.ready && cap.can3D) ? "right" : "left"}>
               <StoryCopy title="Cut, set and polished by hand" text="Each stone is set and each edge finished by a single craftsperson, then checked against the design before it leaves the workshop. Slow work, and you can see it in the light." />
             </Panel>
             <Panel progress={progress} from={0.52} to={0.76} side="left">
