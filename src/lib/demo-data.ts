@@ -41,20 +41,20 @@ const rows: Row[] = [
 
 const CATEGORY_IMAGES: Record<string, string[]> = {
   bridal: [
-    "https://images.pexels.com/photos/32989027/pexels-photo-32989027.jpeg?cs=srgb&dl=pexels-kunal-lakhotia-781256899-32989027.jpg&fm=jpg",
-    "https://images.pexels.com/photos/29502924/pexels-photo-29502924.jpeg?cs=srgb&dl=pexels-zandatsu-29502924.jpg&fm=jpg",
+    "https://images.pexels.com/photos/28347079/pexels-photo-28347079.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "https://images.pexels.com/photos/32077588/pexels-photo-32077588.jpeg?auto=compress&cs=tinysrgb&w=1200",
   ],
   rings: [
-    "https://images.pexels.com/photos/2735981/pexels-photo-2735981.jpeg?cs=srgb&dl=pexels-say-straight-1400349-2735981.jpg&fm=jpg",
-    "https://images.pexels.com/photos/8398838/pexels-photo-8398838.jpeg?cs=srgb&dl=pexels-the-glorious-studio-6716445-8398838.jpg&fm=jpg",
+    "https://images.pexels.com/photos/5442468/pexels-photo-5442468.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "https://images.pexels.com/photos/14466164/pexels-photo-14466164.jpeg?auto=compress&cs=tinysrgb&w=1200",
   ],
   necklaces: [
-    "https://images.pexels.com/photos/12194264/pexels-photo-12194264.jpeg?cs=srgb&dl=pexels-mlkbnl-12194264.jpg&fm=jpg",
-    "https://images.pexels.com/photos/12217206/pexels-photo-12217206.jpeg?cs=srgb&dl=pexels-vvs-12217206.jpg&fm=jpg",
+    "https://images.pexels.com/photos/19025993/pexels-photo-19025993.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "https://images.pexels.com/photos/13292423/pexels-photo-13292423.jpeg?auto=compress&cs=tinysrgb&w=1200",
   ],
   earrings: [
-    "https://images.pexels.com/photos/19869443/pexels-photo-19869443.jpeg?cs=srgb&dl=pexels-atulm0han-19869443.jpg&fm=jpg",
-    "https://images.pexels.com/photos/12144978/pexels-photo-12144978.jpeg?cs=srgb&dl=pexels-duygukamar-12144978.jpg&fm=jpg",
+    "https://images.pexels.com/photos/12194363/pexels-photo-12194363.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    "https://images.pexels.com/photos/8448234/pexels-photo-8448234.jpeg?auto=compress&cs=tinysrgb&w=1200",
   ],
 };
 
