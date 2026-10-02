@@ -2,7 +2,10 @@
 const nextConfig = {
   output: "export",
   trailingSlash: true,
-  images: { unoptimized: true },
+  images: {
+    unoptimized: true,
+    remotePatterns: [{ protocol: "https", hostname: "images.pexels.com" }],
+  },
   reactStrictMode: true,
   poweredByHeader: false,
 };
