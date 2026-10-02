@@ -89,12 +89,6 @@ export default function RingHero({ progress, source }: { progress: MotionValue<n
   return (
     <div className="pointer-events-none absolute inset-0 grid place-items-center [perspective:1100px]" aria-hidden>
       <motion.div style={{ x: baseX, y: baseY, scale }} className="relative will-change-transform">
-        {/* soft glow behind the ring */}
-        <motion.div
-          className="absolute left-1/2 top-1/2 h-[120%] w-[120%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(201,162,75,0.20),transparent_68%)]"
-          animate={{ opacity: [0.55, 0.95, 0.55] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        />
         <motion.div
           style={{ x: shiftX, y: shiftY, rotateX: tiltX, rotateY, rotateZ: spin, transformStyle: "preserve-3d" }}
           className="relative will-change-transform"
