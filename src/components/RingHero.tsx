@@ -99,7 +99,16 @@ export default function RingHero({ progress, source }: { progress: MotionValue<n
           style={{ x: shiftX, y: shiftY, rotateX: tiltX, rotateY, rotateZ: spin, transformStyle: "preserve-3d" }}
           className="relative will-change-transform"
         >
-          <motion.div animate={{ y: [0, -14, 0] }} transition={{ duration: 6.5, repeat: Infinity, ease: "easeInOut" }}>
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 z-10 h-[72%] w-[22%] -translate-x-1/2 -translate-y-1/2 rotate-[18deg] rounded-full bg-[linear-gradient(90deg,transparent,rgba(255,245,210,0.38),transparent)] blur-[10px] mix-blend-screen"
+            animate={{ x: ["-190%", "190%"], opacity: [0, 0.75, 0] }}
+            transition={{ duration: 5.5, repeat: Infinity, repeatDelay: 2.8, ease: "easeInOut" }}
+          />
+          <motion.div
+              animate={{ y: [0, -14, 0], rotateZ: [-0.8, 0.8, -0.8] }}
+              transition={{ y: { duration: 6.5, repeat: Infinity, ease: "easeInOut" }, rotateZ: { duration: 9, repeat: Infinity, ease: "easeInOut" } }}
+            >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={source.src}
