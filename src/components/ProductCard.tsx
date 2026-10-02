@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { Heart, Plus } from "lucide-react";
@@ -17,7 +16,15 @@ export function productHref(slug: string) {
 export function ProductImage({ product, variant, className }: { product: Product; variant: 0 | 1; className?: string }) {
   const src = product.images[variant] ?? (variant === 1 ? undefined : product.images[0]);
   if (src) {
-    return <Image src={src} alt={`${product.name}${variant ? ", alternate view" : ""}`} fill sizes="(max-width: 768px) 50vw, 25vw" className={className ?? "object-cover"} />;
+    return (
+      <img
+        src={src}
+        alt={`${product.name}${variant ? ", alternate view" : ""}`}
+        className={className ?? "h-full w-full object-cover"}
+        loading="lazy"
+        decoding="async"
+      />
+    );
   }
   return (
     <ProductArt
