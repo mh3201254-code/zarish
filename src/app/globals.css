@@ -10,9 +10,9 @@
   used sparingly, and a showcase pattern built around one 3D gem.
 */
 :root {
-  --bg: #fbfaf7;
+  --bg: #ffffff;
   --surface: #ffffff;
-  --surface-2: #f5f1e8;
+  --surface-2: #ffffff;
   --ivory: #1b1916;
   --muted: #706b63;
   --gold: #c9a24b;
@@ -72,6 +72,16 @@ h1, h2, h3, .font-display {
   font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1.04;
+  color: var(--gold);
+}
+
+header {
+  background: #ffffff !important;
+}
+
+h1 + p, h2 + p, h3 + p,
+.subheading, .subtitle {
+  color: #1b1916 !important;
 }
 
 ::selection {
