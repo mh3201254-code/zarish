@@ -28,9 +28,14 @@ export function normalizeProduct(r: RawProduct): Product {
     featured: Boolean(r.featured),
     published: Boolean(r.published),
     sort_order: Number(r.sort_order) || 0,
-    images: localImagesForCategory(clean(cat?.slug ?? "", 80)).length > 0
-      ? localImagesForCategory(clean(cat?.slug ?? "", 80))
-      : (Array.isArray(r.images) ? (r.images as unknown[]).map(safeUrl).filter(Boolean) : []),
+    images: (() => {
+      const dbImages = Array.isArray(r.images) ? (r.images as unknown[]).map(safeUrl).filter(Boolean) : [];
+      if (dbImages.length > 0) return dbImages;
+      const slug = clean(r.slug, 120);
+      const exactImages = LOCAL_PRODUCT_IMAGES[slug] ?? [];
+      if (exactImages.length > 0) return exactImages;
+      return localImagesForCategory(clean(cat?.slug ?? "", 80));
+    })(),
   };
 }
 
@@ -49,7 +54,15 @@ export function normalizeCategory(r: Record<string, unknown>): Category {
 
 
 // Local ZARISH product images uploaded to GitHub.
-// These replace the old remote demo images by category.
+// Keep each product's own database image first; these are only fallbacks.
+const LOCAL_PRODUCT_IMAGES: Record<string, string[]> = {
+  "noor-bridal-set": ["/products/bridal-flatlay.webp"],
+  "tara-stacking-bands": ["/products/rings-stack.webp"],
+  "hira-pendant-chain": ["/products/pendant-pear.webp"],
+  "rani-haar": ["/products/necklace-lifestyle.webp"],
+  "jhilmil-jhumkay": ["/products/jhumka-studio.webp", "/products/jhumka-lifestyle.webp"],
+};
+
 const LOCAL_CATEGORY_IMAGES: Record<string, string[]> = {
   bridal: [
     "/products/bridal-flatlay.webp",
