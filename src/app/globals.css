@@ -10,15 +10,15 @@
   used sparingly, and a showcase pattern built around one 3D gem.
 */
 :root {
-  --bg: #ffffff;
-  --surface: #ffffff;
-  --surface-2: #ffffff;
-  --ivory: #1b1916;
-  --muted: #706b63;
-  --gold: #c9a24b;
-  --gold-soft: #e6cf93;
-  --ruby: #c9a24b;
-  --line: rgba(27, 25, 22, 0.12);
+  --bg: #fbf9f6;
+  --surface: #f4efe8;
+  --surface-2: #ece5db;
+  --ivory: #2a2623;
+  --muted: #7a7269;
+  --gold: #b08d57;
+  --gold-soft: #8f6f3f;
+  --ruby: #efe6da;
+  --line: rgba(42, 38, 35, 0.12);
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -71,17 +71,13 @@ h1, h2, h3, .font-display {
   font-family: var(--font-display);
   font-weight: 500;
   letter-spacing: -0.01em;
-  line-height: 1.04;
-  color: var(--gold);
-}
-
-header {
-  background: #ffffff !important;
+  line-height: 1.08;
+  color: var(--ivory);
 }
 
 h1 + p, h2 + p, h3 + p,
 .subheading, .subtitle {
-  color: #1b1916 !important;
+  color: var(--muted);
 }
 
 ::selection {
@@ -110,7 +106,7 @@ input, textarea, select {
   border-radius: 2px;
   transition: border-color 0.2s;
 }
-input::placeholder, textarea::placeholder { color: rgba(185, 169, 154, 0.7); }
+input::placeholder, textarea::placeholder { color: rgba(122, 114, 105, 0.7); }
 input:focus, textarea:focus, select:focus { border-color: var(--gold); outline: none; }
 select option { background: var(--surface); }
 
@@ -127,19 +123,16 @@ select option { background: var(--surface); }
   transition: background-color 0.25s, color 0.25s, border-color 0.25s, opacity 0.25s;
   white-space: nowrap;
 }
-.btn-gold { background: var(--gold); color: #fffdf8; }
-.btn-gold:hover { background: var(--gold-soft); }
+.btn-gold { background: var(--ivory); color: #fbf9f6; }
+.btn-gold:hover { background: #4a423c; }
 .btn-line { border: 1px solid var(--line); color: var(--ivory); }
-.btn-line:hover { border-color: var(--gold); color: var(--gold-soft); }
+.btn-line:hover { border-color: var(--ivory); background: var(--surface); }
 .btn:disabled { opacity: 0.45; cursor: not-allowed; }
 
 .container-x { width: min(100% - 2.5rem, 1320px); margin-inline: auto; }
 
 .gold-text {
-  background: linear-gradient(100deg, #8d6c2a 0%, #e6cf93 38%, #c9a24b 62%, #8d6c2a 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--ivory);
 }
 
 .marquee-track { animation: marquee 38s linear infinite; }

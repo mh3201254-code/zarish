@@ -57,13 +57,13 @@ function Header() {
         Skip to content
       </a>
       {settings.announcement && (
-        <div className="relative z-[60] bg-ruby px-4 py-2 text-center text-xs text-ivory">{settings.announcement}</div>
+        <div className="relative z-[60] bg-ruby px-4 py-2 text-center text-[11px] uppercase tracking-[0.18em] text-ivory">{settings.announcement}</div>
       )}
       <header
         className={`sticky top-0 z-[70] transition-colors duration-500 ${scrolled ? "border-b border-line bg-bg/85 backdrop-blur-md" : "bg-transparent"}`}
       >
         <div className="container-x flex h-[72px] items-center justify-between">
-          <Link href="/" className="font-display text-3xl tracking-[0.2em]" aria-label="ZARISH home">
+          <Link href="/" className="font-display text-3xl tracking-[0.28em]" aria-label="ZARISH home">
             <span className="gold-text">ZARISH</span>
           </Link>
           <nav aria-label="Primary" className="hidden items-center gap-9 md:flex">
@@ -72,7 +72,7 @@ function Header() {
                 key={n.href}
                 href={n.href}
                 aria-current={pathname === n.href ? "page" : undefined}
-                className={`text-sm transition-colors hover:text-gold-soft ${pathname === n.href ? "text-gold-soft" : "text-ivory/85"}`}
+                className={`text-[13px] uppercase tracking-[0.14em] transition-colors hover:text-gold-soft ${pathname === n.href ? "text-gold-soft" : "text-ivory/80"}`}
               >
                 {n.label}
               </Link>
@@ -116,7 +116,7 @@ function Header() {
 
 function Badge({ n }: { n: number }) {
   return (
-    <span className="absolute right-1 top-1 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-gold px-1 text-[11px] font-semibold text-[#1a0d10]">
+    <span className="absolute right-1 top-1 grid h-[18px] min-w-[18px] place-items-center rounded-full bg-gold px-1 text-[11px] font-semibold text-white">
       {n}
     </span>
   );
@@ -167,7 +167,7 @@ function Footer() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10%" }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="gold-text mt-20 select-none text-center font-display text-[clamp(5rem,24vw,22rem)] leading-[0.8] tracking-[0.06em]"
+        className="gold-text mt-20 select-none text-center font-display text-[clamp(5rem,24vw,22rem)] opacity-[0.07] leading-[0.8] tracking-[0.06em]"
       >
         ZARISH
       </motion.p>

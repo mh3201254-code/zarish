@@ -101,7 +101,11 @@ export function CollectionsGallery() {
               <Link href={`/shop/?category=${c.slug}`} className="group block">
                 <div className="relative aspect-[4/5] overflow-hidden border border-line md:aspect-[5/6]">
                   <div className="absolute inset-0 transition-transform duration-[900ms] ease-[var(--ease-out)] group-hover:scale-[1.05]">
-                    <ProductArt category={c.slug} seed={i} label={c.name} className="h-full w-full" />
+                    {c.cover_image ? (
+                      <img src={c.cover_image} alt={c.name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                    ) : (
+                      <ProductArt category={c.slug} seed={i} label={c.name} className="h-full w-full" />
+                    )}
                   </div>
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-bg via-bg/70 to-transparent p-6 pt-24">
                     <h3 className="text-4xl">{c.name}</h3>

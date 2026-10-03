@@ -140,7 +140,7 @@ export default function Story() {
   return (
     <section ref={wrap} aria-label="Introduction" className={reduce ? "relative" : "relative h-[460vh]"}>
       <div ref={sticky} className={reduce ? "relative min-h-[88vh]" : "sticky top-0 h-screen overflow-hidden"}>
-        <div className="absolute inset-0 bg-white" aria-hidden />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,#f4efe8_0%,#fbf9f6_70%)]" aria-hidden />
         {/* A realistic ring image (public/hero-ring.png) wins. Without one, the 3D ruby gem is used. */}
         {ring ? (
           <RingHero progress={progress} source={ring} />
@@ -156,10 +156,11 @@ export default function Story() {
         <motion.div style={{ opacity: heroOpacity, y: heroY }} className="absolute inset-0 z-10 flex items-end pb-20 md:items-center md:pb-0">
           <div className="container-x">
             <div className="max-w-xl">
+              <p className="mb-5 text-[11px] uppercase tracking-[0.3em] text-muted">Fine jewellery, Pakistan</p>
               <KineticText
                 as="h1"
                 text={settings.hero_title || "Gold, worn for generations"}
-                className="text-[clamp(3.4rem,9vw,7.6rem)] leading-[0.95]"
+                className="text-[clamp(3rem,7.5vw,6.4rem)] leading-[1]"
                 delay={1.7}
               />
               <motion.p
@@ -176,7 +177,7 @@ export default function Story() {
                 transition={{ delay: 2.45, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-9 flex flex-wrap items-center gap-5"
               >
-                <Magnetic href="/shop/" className="btn btn-gold px-9 py-4 text-base">
+                <Magnetic href="/shop/" className="btn btn-gold px-9 py-4 text-[13px] uppercase tracking-[0.14em]">
                   Shop Collection
                 </Magnetic>
                 <Link href="/collections/" className="text-sm text-ivory underline decoration-gold underline-offset-[6px] hover:text-gold-soft">

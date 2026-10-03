@@ -77,27 +77,29 @@ export default function ProductCard({ product, preview = false }: { product: Pro
     <div className="[perspective:900px]">
       <motion.div
         ref={ref}
-        style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
+        
         onPointerMove={onMove}
         onPointerEnter={(e) => e.pointerType === "mouse" && setHover(true)}
         onPointerLeave={onLeave}
         className="group relative"
       >
         <Link href={href} onClick={(e) => preview && e.preventDefault()} className="block focus-visible:outline-offset-4" aria-label={`${product.name}, ${formatPKR(product.sale_price ?? product.price)}`}>
-          <div className="relative aspect-[4/5] overflow-hidden border border-line bg-surface">
-            <div className="absolute inset-0 transition-opacity duration-500 group-hover:opacity-0">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[4px] bg-surface">
+            <div className={`absolute inset-0 transition-opacity duration-500 ${product.images.length === 1 ? "" : "group-hover:opacity-0"}`}>
               <ProductImage product={product} variant={0} />
             </div>
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-              <ProductImage product={product} variant={1} />
-            </div>
+            {(product.images.length === 0 || product.images.length > 1) && (
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+                <ProductImage product={product} variant={1} />
+              </div>
+            )}
             <motion.div
               aria-hidden
               style={{ x: glowX, y: glowY, opacity: glowOpacity }}
-              className="pointer-events-none absolute left-0 top-0 h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(230,207,147,0.32),transparent_65%)]"
+              className="pointer-events-none absolute left-0 top-0 h-60 w-60 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.35),transparent_65%)]"
             />
             {onSale && (
-              <span className="absolute left-3 top-3 rounded-full bg-gold px-3 py-1 text-xs font-medium text-[#1a0d10]">Sale</span>
+              <span className="absolute left-3 top-3 rounded-full bg-white px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-ivory">Sale</span>
             )}
             {out && (
               <span className="absolute left-3 top-3 rounded-full border border-line bg-bg/80 px-3 py-1 text-xs">Sold out</span>
@@ -105,12 +107,12 @@ export default function ProductCard({ product, preview = false }: { product: Pro
           </div>
           <div className="mt-4 flex items-start justify-between gap-3">
             <div>
-              <h3 className="text-xl leading-tight">{product.name}</h3>
+              <h3 className="font-body text-[15px] font-normal leading-tight">{product.name}</h3>
               <p className="mt-1 text-xs text-muted">{product.metal || product.category_name}</p>
             </div>
             <p className="text-right text-sm">
               {onSale && <span className="block text-xs text-muted line-through">{formatPKR(product.price)}</span>}
-              <span className="text-gold-soft">{formatPKR(product.sale_price ?? product.price)}</span>
+              <span className="text-ivory">{formatPKR(product.sale_price ?? product.price)}</span>
             </p>
           </div>
         </Link>
@@ -135,7 +137,7 @@ export default function ProductCard({ product, preview = false }: { product: Pro
             cart.add(product, product.sizes[0]);
           }}
           aria-label={`Add ${product.name} to cart`}
-          className="absolute bottom-[4.6rem] right-3 grid h-11 translate-y-2 place-items-center gap-1 rounded-full bg-gold px-4 text-sm font-medium text-[#1a0d10] opacity-0 transition-all duration-300 hover:bg-gold-soft focus-visible:translate-y-0 focus-visible:opacity-100 group-hover:translate-y-0 group-hover:opacity-100 max-md:translate-y-0 max-md:opacity-100 disabled:opacity-0"
+          className="absolute bottom-[4.6rem] right-3 grid h-11 translate-y-2 place-items-center gap-1 rounded-full bg-ivory px-4 text-sm font-medium text-white opacity-0 transition-all duration-300 hover:bg-[#4a423c] focus-visible:translate-y-0 focus-visible:opacity-100 group-hover:translate-y-0 group-hover:opacity-100 max-md:translate-y-0 max-md:opacity-100 disabled:opacity-0"
         >
           <span className="flex items-center gap-1.5">
             <Plus size={16} /> Add
