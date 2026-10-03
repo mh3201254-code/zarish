@@ -140,7 +140,7 @@ export default function Story() {
   return (
     <section ref={wrap} aria-label="Introduction" className={reduce ? "relative" : "relative h-[460vh]"}>
       <div ref={sticky} className={reduce ? "relative min-h-[88vh]" : "sticky top-0 h-screen overflow-hidden"}>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,#3a1220_0%,#140a0d_62%)]" aria-hidden />
+        <div className="absolute inset-0 bg-white" aria-hidden />
         {/* A realistic ring image (public/hero-ring.png) wins. Without one, the 3D ruby gem is used. */}
         {ring ? (
           <RingHero progress={progress} source={ring} />
