@@ -52,20 +52,20 @@ export function normalizeCategory(r: Record<string, unknown>): Category {
 // These replace the old remote demo images by category.
 const LOCAL_CATEGORY_IMAGES: Record<string, string[]> = {
   bridal: [
-    "/images/Gemini_Generated_Image_5xjb2a5xjb2a5xjb.jpg",
-    "/images/Gemini_Generated_Image_8uc9ab8uc9ab8uc9.jpg",
+    "/products/bridal-flatlay.webp",
   ],
   rings: [
-    "/images/Gemini_Generated_Image_b7bmp1b7bmp1b7bm.jpg",
-    "/images/Gemini_Generated_Image_cy8ht6cy8ht6cy8h.jpg",
+    "/products/rings-stack.webp",
+    "/products/hand-ring-bracelet.webp",
+    "/products/bangles-stack.webp",
   ],
   necklaces: [
-    "/images/Gemini_Generated_Image_hjsemehjsemehjse.jpg",
-    "/images/Gemini_Generated_Image_hqi4jbhqi4jbhqi4.jpg",
+    "/products/necklace-lifestyle.webp",
+    "/products/pendant-pear.webp",
   ],
   earrings: [
-    "/images/Gemini_Generated_Image_iax9a1iax9a1iax9.jpg",
-    "/images/Gemini_Generated_Image_rvwgggrvwgggrvwg.jpg",
+    "/products/jhumka-studio.webp",
+    "/products/jhumka-lifestyle.webp",
   ],
 };
 
