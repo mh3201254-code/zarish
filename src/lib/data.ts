@@ -56,8 +56,8 @@ export function normalizeCategory(r: Record<string, unknown>): Category {
 // Local ZARISH product images uploaded to GitHub.
 // Keep each product's own database image first; these are only fallbacks.
 const LOCAL_PRODUCT_IMAGES: Record<string, string[]> = {
-  "mehr-bridal-set": ["https://raw.githubusercontent.com/mh3201254-code/zarish/main/noor-bridal-set.webp/Gemini_Generated_Image_4feqe44feqe44feq.jpg"],
-  "zoya-solitaire-ring": ["https://raw.githubusercontent.com/mh3201254-code/zarish/main/noor-bridal-set.webp/Gemini_Generated_Image_xcpe4fxcpe4fxcpe.jpg"],
+  "mehr-bridal-set": ["/products/mahar-bridal-set.jpg"],
+  "zoya-solitaire-ring": ["/products/zoya-solitaire-ring.jpg"],
   "tara-stacking-bands": ["/products/rings-stack.webp"],
   "hira-pendant-chain": ["/products/pendant-pear.webp"],
   "rani-haar": ["/products/necklace-lifestyle.webp"],
