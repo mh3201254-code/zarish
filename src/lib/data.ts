@@ -28,7 +28,9 @@ export function normalizeProduct(r: RawProduct): Product {
     featured: Boolean(r.featured),
     published: Boolean(r.published),
     sort_order: Number(r.sort_order) || 0,
-    images: localImagesForCategory(clean(cat?.slug ?? "", 80)).length > 0\n      ? localImagesForCategory(clean(cat?.slug ?? "", 80))\n      : (Array.isArray(r.images) ? (r.images as unknown[]).map(safeUrl).filter(Boolean) : []),
+    images: localImagesForCategory(clean(cat?.slug ?? "", 80)).length > 0
+      ? localImagesForCategory(clean(cat?.slug ?? "", 80))
+      : (Array.isArray(r.images) ? (r.images as unknown[]).map(safeUrl).filter(Boolean) : []),
   };
 }
 
