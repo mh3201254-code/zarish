@@ -36,7 +36,13 @@ export function MarqueeBand() {
 
 export function Featured() {
   const { data, error } = useCatalog();
-  const items = data ? data.products.filter((p) => p.featured).slice(0, 4).map((p) => {\n    if (p.slug === "mehr-bridal-set") return { ...p, images: ["/products/mahar-bridal-set.jpg"] };\n    if (p.slug === "zoya-solitaire-ring") return { ...p, images: ["/products/zoya-solitaire-ring.jpg"] };\n    return p;\n  }) : [];
+  const items = data
+    ? data.products.filter((p) => p.featured).slice(0, 4).map((p, i) => {
+        if (i === 1) return { ...p, images: ["/products/mahar-bridal-set.jpg"] };
+        if (i === 2) return { ...p, images: ["/products/zoya-solitaire-ring.jpg"] };
+        return p;
+      })
+    : [];
   return (
     <section className="container-x pt-[var(--space-6)]">
       <div className="flex flex-wrap items-end justify-between gap-6">
