@@ -28,7 +28,7 @@ export function normalizeProduct(r: RawProduct): Product {
     featured: Boolean(r.featured),
     published: Boolean(r.published),
     sort_order: Number(r.sort_order) || 0,
-    images: Array.isArray(r.images) ? (r.images as unknown[]).map(safeUrl).filter(Boolean) : [],
+    images: localImagesForCategory(clean(cat?.slug ?? "", 80)).length > 0\n      ? localImagesForCategory(clean(cat?.slug ?? "", 80))\n      : (Array.isArray(r.images) ? (r.images as unknown[]).map(safeUrl).filter(Boolean) : []),
   };
 }
 
@@ -42,6 +42,33 @@ export function normalizeCategory(r: Record<string, unknown>): Category {
     sort_order: Number(r.sort_order) || 0,
     published: r.published !== false,
   };
+}
+
+
+
+// Local ZARISH product images uploaded to GitHub.
+// These replace the old remote demo images by category.
+const LOCAL_CATEGORY_IMAGES: Record<string, string[]> = {
+  bridal: [
+    "/images/Gemini_Generated_Image_5xjb2a5xjb2a5xjb.jpg",
+    "/images/Gemini_Generated_Image_8uc9ab8uc9ab8uc9.jpg",
+  ],
+  rings: [
+    "/images/Gemini_Generated_Image_b7bmp1b7bmp1b7bm.jpg",
+    "/images/Gemini_Generated_Image_cy8ht6cy8ht6cy8h.jpg",
+  ],
+  necklaces: [
+    "/images/Gemini_Generated_Image_hjsemehjsemehjse.jpg",
+    "/images/Gemini_Generated_Image_hqi4jbhqi4jbhqi4.jpg",
+  ],
+  earrings: [
+    "/images/Gemini_Generated_Image_iax9a1iax9a1iax9.jpg",
+    "/images/Gemini_Generated_Image_rvwgggrvwgggrvwg.jpg",
+  ],
+};
+
+function localImagesForCategory(slug: string): string[] {
+  return LOCAL_CATEGORY_IMAGES[slug] ?? [];
 }
 
 export type Catalog = { products: Product[]; categories: Category[]; demo: boolean };
