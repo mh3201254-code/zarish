@@ -37,9 +37,12 @@ export function MarqueeBand() {
 export function Featured() {
   const { data, error } = useCatalog();
   const items = data
-    ? data.products.filter((p) => p.featured).slice(0, 4).map((p, i) => {
-        if (i === 1) return { ...p, images: ["/products/mahar-bridal-set.jpg"] };
-        if (i === 2) return { ...p, images: ["/products/zoya-solitaire-ring.jpg"] };
+    ? data.products.filter((p) => p.featured).slice(0, 4).map((p) => {
+        // Keep each featured product visually matched to its own jewellery category.
+        if (p.slug === "noor-bridal-set") return { ...p, images: ["/products/bridal-flatlay.webp"] };
+        if (p.slug === "mehr-bridal-set") return { ...p, images: ["/products/mahar-bridal-set.jpg"] };
+        if (p.slug === "zoya-solitaire-ring") return { ...p, images: ["/products/zoya-solitaire-ring.jpg"] };
+        if (p.slug === "hira-pendant-chain") return { ...p, images: ["/products/pendant-pear.webp"] };
         return p;
       })
     : [];
