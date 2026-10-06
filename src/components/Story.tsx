@@ -140,7 +140,19 @@ export default function Story() {
   return (
     <section ref={wrap} aria-label="Introduction" className={reduce ? "relative" : "relative h-[460vh]"}>
       <div ref={sticky} className={reduce ? "relative min-h-[88vh]" : "sticky top-0 h-screen overflow-hidden"}>
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_45%,#f4efe8_0%,#fbf9f6_70%)]" aria-hidden />
+        <div className="absolute inset-0 overflow-hidden bg-white" aria-hidden>
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            src="/hero-jewellery.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-white/10" />
+        </div>
         {/* A realistic ring image (public/hero-ring.png) wins. Without one, the 3D ruby gem is used. */}
         {ring ? (
           <RingHero progress={progress} source={ring} />
