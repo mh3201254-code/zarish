@@ -143,7 +143,7 @@ export default function Story() {
         <div className="absolute inset-0 overflow-hidden bg-white" aria-hidden>
           <video
             className="absolute inset-0 h-full w-full object-cover"
-            src="/hero-jewellery.mp4"
+            src="/hero-jewellery.mp4/hero-jewellery.mp4.mp4"
             autoPlay
             muted
             loop
