@@ -138,91 +138,121 @@ export default function Story() {
   const heroY = useTransform(progress, [0, 0.22, 1], [0, -60, -60]);
 
   return (
-    <section ref={wrap} aria-label="Introduction" className={reduce ? "relative" : "relative h-[460vh]"}>
-      <div ref={sticky} className={reduce ? "relative min-h-[88vh]" : "sticky top-0 h-screen overflow-hidden"}>
-        <div className="absolute inset-0 overflow-hidden bg-white" aria-hidden>
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
-            src="/hero-jewellery.mp4/hero-jewellery.mp4.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="auto"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-white/10" />
-        </div>
-        {/* A realistic ring image (public/hero-ring.png) wins. Without one, the 3D ruby gem is used. */}
-        {ring ? (
-          <RingHero progress={progress} source={ring} />
-        ) : ring === null && cap.ready && cap.can3D ? (
-          <CanvasBoundary fallback={<StaticGem />}>
-            <GemCanvas progress={progress} lowPower={cap.lowPower} visible={visible} />
-          </CanvasBoundary>
-        ) : ring === null ? (
-          <StaticGem />
-        ) : null}
-
-        {/* Hero */}
-        <motion.div style={{ opacity: heroOpacity, y: heroY }} className="absolute inset-0 z-10 flex items-end pb-20 md:items-center md:pb-0">
-          <div className="container-x">
-            <div className="max-w-xl">
-              <p className="mb-5 text-[11px] uppercase tracking-[0.3em] text-muted">Fine jewellery, Pakistan</p>
-              <KineticText
-                as="h1"
-                text={settings.hero_title || "Gold, worn for generations"}
-                className="text-[clamp(3rem,7.5vw,6.4rem)] leading-[1]"
-                delay={1.7}
-              />
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-6 max-w-md text-base text-muted md:text-lg"
-              >
-                {settings.hero_subtitle}
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2.45, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-9 flex flex-wrap items-center gap-5"
-              >
-                <Magnetic href="/shop/" className="btn btn-gold px-9 py-4 text-[13px] uppercase tracking-[0.14em]">
-                  Shop Collection
-                </Magnetic>
-                <Link href="/collections/" className="text-sm text-ivory underline decoration-gold underline-offset-[6px] hover:text-gold-soft">
-                  See the collections
-                </Link>
-              </motion.div>
+    <>
+      {/* Separate cinematic video hero: the video never sits behind the 3D ring. */}
+      <section aria-label="ZARISH jewellery film" className="relative h-[72vh] min-h-[560px] overflow-hidden bg-black">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          src="/hero-jewellery.mp4/hero-jewellery.mp4.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/45" />
+        <div className="relative z-10 flex h-full items-center justify-center px-6 text-center">
+          <div className="max-w-2xl text-white">
+            <p className="mb-5 text-[10px] uppercase tracking-[0.48em] text-white/80 md:text-xs">
+              Fine Jewellery · Pakistan
+            </p>
+            <h1 className="font-serif text-[clamp(3.5rem,10vw,8rem)] leading-none tracking-[0.18em]">
+              ZARISH
+            </h1>
+            <div className="mx-auto mt-7 flex items-center justify-center gap-4">
+              <span className="h-px w-14 bg-[#d8bd78]/80 md:w-24" />
+              <span className="text-[10px] uppercase tracking-[0.36em] text-white/90 md:text-xs">
+                Where light becomes legacy
+              </span>
+              <span className="h-px w-14 bg-[#d8bd78]/80 md:w-24" />
             </div>
+            <p className="mx-auto mt-5 max-w-md text-sm leading-7 text-white/80 md:text-base">
+              Jewellery shaped by light, crafted to be remembered.
+            </p>
           </div>
-        </motion.div>
-
-        {!reduce && (
-          <>
-            <Panel progress={progress} from={0.24} to={0.5} side={ring || (cap.ready && cap.can3D) ? "right" : "left"}>
-              <StoryCopy title="Cut, set and polished by hand" text="Each stone is set and each edge finished by a single craftsperson, then checked against the design before it leaves the workshop. Slow work, and you can see it in the light." />
-            </Panel>
-            <Panel progress={progress} from={0.52} to={0.76} side="left">
-              <StoryCopy title="Metal you can read about" text="Every product page lists its metal, stone and weight in grams, so you know exactly what you are buying before you order." />
-            </Panel>
-            <Panel progress={progress} from={0.78} to={1} side="left">
-              <StoryCopy title="Made for the day, kept for the decades" text="Bridal sets are designed as a whole: necklace, earrings and tikka that sit together on camera and in person." cta />
-            </Panel>
-          </>
-        )}
-      </div>
-
-      {reduce && (
-        <div className="container-x grid gap-14 py-20 md:grid-cols-3">
-          <StoryCopy title="Cut, set and polished by hand" text="Each stone is set and each edge finished by a single craftsperson, then checked against the design before it leaves the workshop." />
-          <StoryCopy title="Metal you can read about" text="Every product page lists its metal, stone and weight in grams, so you know exactly what you are buying." />
-          <StoryCopy title="Made for the day, kept for the decades" text="Bridal sets are designed as a whole: necklace, earrings and tikka that sit together." cta />
         </div>
-      )}
-    </section>
+      </section>
+
+      {/* Existing interactive ring story — kept separate and below the video hero. */}
+      <section ref={wrap} aria-label="Interactive ring experience" className={reduce ? "relative" : "relative h-[460vh]"}>
+        <div ref={sticky} className={reduce ? "relative min-h-[88vh]" : "sticky top-0 h-screen overflow-hidden"}>
+          <div className="absolute inset-0 overflow-hidden bg-white" aria-hidden>
+            <div className="absolute inset-0 bg-white" />
+          </div>
+
+          {/* Existing ring animation stays in its own section. */}
+          {ring ? (
+            <RingHero progress={progress} source={ring} />
+          ) : ring === null && cap.ready && cap.can3D ? (
+            <CanvasBoundary fallback={<StaticGem />}>
+              <GemCanvas progress={progress} lowPower={cap.lowPower} visible={visible} />
+            </CanvasBoundary>
+          ) : ring === null ? (
+            <StaticGem />
+          ) : null}
+
+          {/* Existing ring-story copy and controls remain unchanged. */}
+          <motion.div style={{ opacity: heroOpacity, y: heroY }} className="absolute inset-0 z-10 flex items-end pb-20 md:items-center md:pb-0">
+            <div className="container-x">
+              <div className="max-w-xl">
+                <p className="mb-5 text-[11px] uppercase tracking-[0.3em] text-muted">Fine jewellery, Pakistan</p>
+                <KineticText
+                  as="h2"
+                  text={settings.hero_title || "Gold, worn for generations"}
+                  className="text-[clamp(3rem,7.5vw,6.4rem)] leading-[1]"
+                  delay={1.7}
+                />
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2.2, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                  className="mt-6 max-w-md text-base text-muted md:text-lg"
+                >
+                  {settings.hero_subtitle}
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2.45, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                  className="mt-9 flex flex-wrap items-center gap-5"
+                >
+                  <Magnetic href="/shop/" className="btn btn-gold px-9 py-4 text-[13px] uppercase tracking-[0.14em]">
+                    Shop Collection
+                  </Magnetic>
+                  <Link href="/collections/" className="text-sm text-muted underline decoration-gold underline-offset-[6px] hover:text-gold-soft">
+                    See the collections
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+
+          {!reduce && (
+            <>
+              <Panel progress={progress} from={0.24} to={0.5} side={ring || (cap.ready && cap.can3D) ? "right" : "left"}>
+                <StoryCopy title="Cut, set and polished by hand" text="Each stone is set and each edge finished by a single craftsperson, then checked against the design before it leaves the workshop. Slow work, and you can see it in the light." />
+              </Panel>
+              <Panel progress={progress} from={0.52} to={0.76} side="left">
+                <StoryCopy title="Metal you can read about" text="Every product page lists its metal, stone and weight in grams, so you know exactly what you are buying before you order." />
+              </Panel>
+              <Panel progress={progress} from={0.78} to={1} side="left">
+                <StoryCopy title="Made for the day, kept for the decades" text="Bridal sets are designed as a whole: necklace, earrings and tikka that sit together on camera and in person." cta />
+              </Panel>
+            </>
+          )}
+        </div>
+
+        {reduce && (
+          <div className="container-x grid gap-14 py-20 md:grid-cols-3">
+            <StoryCopy title="Cut, set and polished by hand" text="Each stone is set and each edge finished by a single craftsperson, then checked against the design before it leaves the workshop." />
+            <StoryCopy title="Metal you can read about" text="Every product page lists its metal, stone and weight in grams, so you know exactly what you are buying." />
+            <StoryCopy title="Made for the day, kept for the decades" text="Bridal sets are designed as a whole: necklace, earrings and tikka that sit together." cta />
+          </div>
+        )}
+      </section>
+    </>
   );
 }
 
